@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>Supprimer mon compte – Dillita</title>
+  <meta name="description" content="Demandez la suppression de votre compte Dillita (client ou chauffeur) et de vos données personnelles.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --blue:   #1A5DC8;
+      --ink:    #0F2447;
+      --orange: #F86400;
+      --mist:   #F1F5FC;
+      --line:   #D9E3F3;
+      --muted:  #4F5F7D;
+      --danger: #B3261E;
+      --ok:     #0B7A43;
+      --font:   'Nunito', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; }
+    body {
+      margin: 0;
+      background: #fff;
+      color: var(--ink);
+      font-family: var(--font);
+      font-size: 17px;
+      line-height: 1.6;
+    }
+    a { color: var(--blue); }
+
+    /* ── En-tête ─────────────────────────────────────────── */
+    .top { border-bottom: 1px solid var(--line); }
+    .top-inner {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 6px 20px;
+      display: flex;
+      align-items: center;
+    }
+    .logo { display: block; height: 84px; width: auto; margin-left: -14px; } /* le PNG a une marge transparente : on compense */
+
+    /* ── Contenu ─────────────────────────────────────────── */
+    main { max-width: 720px; margin: 0 auto; padding: 40px 20px 64px; }
+    h1 {
+      margin: 0 0 14px;
+      font-size: clamp(1.9rem, 5vw, 2.5rem);
+      line-height: 1.15;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+    }
+    h2 { margin: 0 0 12px; font-size: 1.25rem; font-weight: 800; line-height: 1.25; }
+    .lead { margin: 0; max-width: 60ch; color: var(--muted); font-size: 1.08rem; }
+
+    /* Trait de vitesse : reprend les traînées du logo */
+    .speed { display: block; width: 210px; height: 38px; margin: 28px 0 36px; }
+
+    section + section { margin-top: 44px; }
+
+    /* Étapes (c'est une vraie séquence, donc numérotée) */
+    .steps { list-style: none; margin: 0; padding: 0; counter-reset: step; }
+    .steps li {
+      counter-increment: step;
+      position: relative;
+      padding: 0 0 20px 54px;
+      max-width: 62ch;
+    }
+    .steps li:last-child { padding-bottom: 0; }
+    .steps li::before {
+      content: counter(step);
+      position: absolute; left: 0; top: 0;
+      width: 38px; height: 38px;
+      display: grid; place-items: center;
+      border-radius: 50%;
+      background: var(--blue); color: #fff;
+      font-weight: 800; font-size: 1.05rem;
+    }
+    .steps li:nth-child(3)::before { background: var(--orange); }
+    .steps li:not(:last-child)::after {
+      content: ''; position: absolute; left: 18px; top: 42px; bottom: 4px;
+      width: 2px; background: var(--line);
+    }
+    .steps strong { display: block; font-size: 1.05rem; }
+    .steps span { color: var(--muted); }
+
+    /* ── Formulaire ──────────────────────────────────────── */
+    .card {
+      background: var(--mist);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 28px 24px;
+    }
+    .field { margin-bottom: 20px; }
+    label, legend { display: block; margin: 0 0 6px; padding: 0; font-weight: 700; font-size: 0.98rem; }
+    .opt { font-weight: 400; color: var(--muted); }
+    .hint { margin: 6px 0 0; font-size: 0.9rem; color: var(--muted); }
+    input[type="text"], input[type="email"], input[type="tel"], textarea {
+      width: 100%;
+      min-height: 50px;
+      padding: 12px 14px;
+      font: inherit;
+      font-size: 16px;
+      color: var(--ink);
+      background: #fff;
+      border: 1.5px solid #B7C6E2;
+      border-radius: 10px;
+    }
+    textarea { min-height: 96px; resize: vertical; }
+    input:focus-visible, textarea:focus-visible, button:focus-visible, .choice:has(input:focus-visible) {
+      outline: 3px solid var(--orange);
+      outline-offset: 2px;
+    }
+    input[aria-invalid="true"] { border-color: var(--danger); }
+
+    fieldset { border: 0; margin: 0 0 20px; padding: 0; }
+    .choices { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .choice {
+      display: flex; align-items: center; gap: 10px;
+      min-height: 50px; padding: 10px 14px;
+      background: #fff; border: 1.5px solid #B7C6E2; border-radius: 10px;
+      cursor: pointer; font-weight: 600;
+    }
+    .choice:has(input:checked) { border-color: var(--blue); box-shadow: inset 0 0 0 1px var(--blue); background: #F7FAFF; }
+    .choice input { width: 20px; height: 20px; accent-color: var(--blue); margin: 0; }
+
+    .consent { display: flex; gap: 12px; align-items: flex-start; margin: 4px 0 22px; }
+    .consent input { width: 22px; height: 22px; margin-top: 3px; accent-color: var(--blue); flex: none; }
+    .consent label { margin: 0; font-weight: 400; font-size: 0.97rem; }
+
+    .btn {
+      width: 100%;
+      min-height: 54px;
+      padding: 14px 20px;
+      font: inherit;
+      font-weight: 800;
+      font-size: 1.05rem;
+      color: #fff;
+      background: var(--blue);
+      border: 0;
+      border-radius: 12px;
+      cursor: pointer;
+    }
+    .btn:hover { background: #154FAB; }
+    .btn[disabled] { opacity: .65; cursor: wait; }
+
+    .msg { min-height: 1.4em; margin: 0 0 14px; font-weight: 700; color: var(--danger); }
+    .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
+    /* Confirmation */
+    .done { display: none; text-align: left; }
+    .done.show { display: block; }
+    .done svg { width: 56px; height: 56px; margin-bottom: 10px; }
+    .ref {
+      display: inline-block; margin: 6px 0 14px;
+      padding: 6px 12px; border-radius: 8px;
+      background: #fff; border: 1px dashed #8FA6CF;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-weight: 700; letter-spacing: .06em;
+    }
+
+    /* Données supprimées / conservées */
+    .two { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+    .two ul { margin: 0; padding-left: 20px; }
+    .two li { margin-bottom: 6px; }
+    .two p { margin: 0; }
+
+    footer { border-top: 1px solid var(--line); color: var(--muted); font-size: .92rem; }
+    footer .in { max-width: 720px; margin: 0 auto; padding: 22px 20px 34px; }
+
+    @media (max-width: 600px) {
+      body { font-size: 16.5px; }
+      main { padding-top: 30px; }
+      .choices, .two { grid-template-columns: 1fr; }
+      .card { padding: 22px 16px; }
+      .logo { height: 68px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="top">
+    <div class="top-inner">
+      <img class="logo" src="dillita_logo_horizontal.png" alt="Dillita" width="916" height="320">
+    </div>
+  </header>
+
+  <main>
+    <section>
+      <h1>Supprimer mon compte Dillita</h1>
+      <p class="lead">
+        Vous utilisez Dillita comme client ou comme chauffeur et vous souhaitez quitter l'application ?
+        Envoyez votre demande ci-dessous. Nous vérifions votre identité, puis nous supprimons votre compte.
+      </p>
+
+      <!-- Trait de vitesse inspiré du logo -->
+      <svg class="speed" viewBox="0 0 210 38" aria-hidden="true" focusable="false">
+        <path d="M0 3 H190 L200 6.5 L190 10 H0 Z" fill="#1A5DC8"/>
+        <path d="M28 16 H190 L200 19.5 L190 23 H28 Z" fill="#1A5DC8"/>
+        <path d="M10 29 H150 L160 32.5 L150 36 H10 Z" fill="#F86400"/>
+      </svg>
+    </section>
+
+    <section aria-labelledby="etapes">
+      <h2 id="etapes">Comment ça se passe</h2>
+      <ol class="steps">
+        <li><strong>Vous envoyez le formulaire</strong><span>Indiquez l'e-mail ou le numéro de téléphone de votre compte Dillita.</span></li>
+        <li><strong>Nous vérifions que la demande vient de vous</strong><span>Nous vous contactons par e-mail ou WhatsApp avant de supprimer quoi que ce soit.</span></li>
+        <li><strong>Votre compte est supprimé</strong><span>Au plus tard 30 jours après votre demande.</span></li>
+      </ol>
+    </section>
+
+    <section aria-labelledby="formulaire">
+      <h2 id="formulaire">Votre demande</h2>
+      <div class="card">
+
+        <form id="deleteForm" novalidate>
+          <div class="field">
+            <label for="fullName">Nom complet</label>
+            <input type="text" id="fullName" name="fullName" autocomplete="name" maxlength="100" required>
+          </div>
+
+          <fieldset>
+            <legend>Type de compte</legend>
+            <div class="choices">
+              <label class="choice"><input type="radio" name="accountType" value="client" checked> Client</label>
+              <label class="choice"><input type="radio" name="accountType" value="driver"> Chauffeur</label>
+            </div>
+          </fieldset>
+
+          <div class="field">
+            <label for="email">E-mail du compte <span class="opt">(facultatif)</span></label>
+            <input type="email" id="email" name="email" autocomplete="email" inputmode="email" maxlength="120" aria-describedby="contactHint">
+          </div>
+
+          <div class="field">
+            <label for="phone">Téléphone du compte <span class="opt">(facultatif)</span></label>
+            <input type="tel" id="phone" name="phone" autocomplete="tel" inputmode="tel" maxlength="30" placeholder="+237 6XX XX XX XX" aria-describedby="contactHint">
+            <p class="hint" id="contactHint">Renseignez au moins l'un des deux : celui que vous utilisez pour vous connecter à Dillita.</p>
+          </div>
+
+          <div class="field">
+            <label for="reason">Motif <span class="opt">(facultatif)</span></label>
+            <textarea id="reason" name="reason" maxlength="500"></textarea>
+          </div>
+
+          <!-- Piège à robots : doit rester vide -->
+          <div class="hp" aria-hidden="true">
+            <label>Ne pas remplir <input type="text" name="website" tabindex="-1" autocomplete="off"></label>
+          </div>
+
+          <div class="consent">
+            <input type="checkbox" id="confirm" name="confirm">
+            <label for="confirm">Je comprends que la suppression est définitive : mon profil et mes identifiants seront effacés, et je ne pourrai pas les récupérer.</label>
+          </div>
+
+          <p class="msg" id="msg" role="alert" aria-live="assertive"></p>
+          <button class="btn" type="submit" id="submitBtn">Envoyer ma demande</button>
+        </form>
+
+        <div class="done" id="done" tabindex="-1">
+          <svg viewBox="0 0 56 56" aria-hidden="true"><circle cx="28" cy="28" r="28" fill="#E4F5EC"/><path d="M16 29.5l8 8 16-18" fill="none" stroke="#0B7A43" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <h2>Demande reçue</h2>
+          <p>Nous vous contactons par e-mail ou WhatsApp pour confirmer votre identité. Votre compte sera supprimé au plus tard 30 jours après votre demande.</p>
+          <p style="margin:0">Votre référence :</p>
+          <div class="ref" id="refCode">—</div>
+          <p class="hint" style="margin:0">Gardez-la pour tout échange avec nous à propos de cette demande.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <section aria-labelledby="donnees">
+      <h2 id="donnees">Vos données</h2>
+      <div class="two">
+        <div>
+          <p><strong>Supprimées</strong></p>
+          <ul>
+            <li>Profil : nom, numéro de téléphone, e-mail, photo</li>
+            <li>Identifiants de connexion</li>
+            <li>Adresses enregistrées et préférences</li>
+            <li>Informations de véhicule et documents (comptes chauffeur)</li>
+          </ul>
+        </div>
+        <div>
+          <p><strong>Conservées, sans votre identité</strong></p>
+          <p>L'historique des courses et des paiements est gardé pour la comptabilité et le traitement d'éventuels litiges, pendant la durée exigée par la loi. Votre nom et votre numéro y sont remplacés par « Compte supprimé ».</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="in">Dillita · Ngaoundéré, Cameroun. Cette page concerne l'application Dillita disponible sur Google Play.</div>
+  </footer>
+
+  <script type="module">
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+    import { getFirestore, collection, addDoc, serverTimestamp }
+      from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+
+    // Configuration web Firebase (identifiants publics, sans danger dans une page web).
+    // La sécurité repose sur les règles Firestore : ce site peut seulement CRÉER une demande.
+    const firebaseConfig = {
+      apiKey: "AIzaSyD6_ogCf9u1-accz4ILYZ7Evk_F8BjiDhc",
+      authDomain: "taxiapp-db81d.firebaseapp.com",
+      databaseURL: "https://taxiapp-db81d-default-rtdb.europe-west1.firebasedatabase.app",
+      projectId: "taxiapp-db81d",
+      storageBucket: "taxiapp-db81d.firebasestorage.app",
+      messagingSenderId: "444397366667",
+      appId: "1:444397366667:web:30545217366c4a48c6538e"
+    };
+    const db = getFirestore(initializeApp(firebaseConfig));
+
+    const form = document.getElementById('deleteForm');
+    const msg  = document.getElementById('msg');
+    const btn  = document.getElementById('submitBtn');
+    const done = document.getElementById('done');
+
+    function fail(text, field) {
+      msg.textContent = text;
+      if (field) { field.setAttribute('aria-invalid', 'true'); field.focus(); }
+    }
+    function showDone(ref) {
+      document.getElementById('refCode').textContent = ref;
+      form.hidden = true;
+      done.classList.add('show');
+      done.focus();
+    }
+    form.addEventListener('input', (e) => {
+      e.target.removeAttribute?.('aria-invalid');
+      msg.textContent = '';
+    });
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      msg.textContent = '';
+      form.querySelectorAll('[aria-invalid]').forEach(el => el.removeAttribute('aria-invalid'));
+
+      // Robot : on fait comme si tout allait bien, sans rien enregistrer
+      if (form.website.value) { showDone('OK'); return; }
+
+      const fullName    = form.fullName.value.trim();
+      const email       = form.email.value.trim().toLowerCase();
+      const phone       = form.phone.value.trim();
+      const accountType = form.accountType.value;
+      const reason      = form.reason.value.trim().slice(0, 500);
+      const phoneDigits = phone.replace(/\D/g, '');
+
+      if (fullName.length < 2)
+        return fail('Indiquez votre nom complet.', form.fullName);
+      if (!email && !phone)
+        return fail('Indiquez l\'e-mail ou le téléphone de votre compte.', form.email);
+      if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))
+        return fail('Cet e-mail n\'est pas valide.', form.email);
+      if (phone && (phoneDigits.length < 8 || phoneDigits.length > 15))
+        return fail('Ce numéro de téléphone n\'est pas valide.', form.phone);
+      if (!form.confirm.checked)
+        return fail('Cochez la case pour confirmer que la suppression est définitive.', form.confirm);
+
+      btn.disabled = true;
+      btn.textContent = 'Envoi en cours…';
+      try {
+        const ref = await addDoc(collection(db, 'deletionRequests'), {
+          fullName, email, phone, accountType, reason,
+          status: 'pending',
+          source: 'web-form',
+          createdAt: serverTimestamp(),
+        });
+        showDone(ref.id.slice(0, 8).toUpperCase());
+      } catch (err) {
+        console.error(err);
+        fail('L\'envoi a échoué. Vérifiez votre connexion et réessayez.');
+        btn.disabled = false;
+        btn.textContent = 'Envoyer ma demande';
+      }
+    });
+  </script>
+</body>
+</html>
